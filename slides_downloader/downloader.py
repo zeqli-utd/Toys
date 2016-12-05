@@ -1,3 +1,6 @@
+#!/usr/bin/python
+# Author: Zeqing Li
+
 import urllib.request
 import urllib.parse
 import os
@@ -6,7 +9,7 @@ from bs4 import BeautifulSoup
 import re
 
 # 1. Download syllabus.html
-# Download the file from `url` and save it locally under `file_name`:
+# Download the file from `url` and save it locally under `filepath`:
 
 url = "http://www3.cs.stonybrook.edu/~porter/courses/cse306/s16/syllabus.html"
 remote = "http://www3.cs.stonybrook.edu/~porter/courses/cse306/s16/"
@@ -20,9 +23,6 @@ for link in soup.find_all('a'):
         dl_list.append(link.get('href'))
 print(dl_list)
 
-
-# dl_queue = []
-# dl_list[]
 currentdir = os.path.dirname(os.path.abspath(__file__));
 
 for i in range(0, len(dl_list)):
