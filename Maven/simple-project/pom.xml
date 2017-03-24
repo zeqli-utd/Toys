@@ -15,4 +15,17 @@
     </dependency>
   </dependencies>
   <description>A simple project created with quickstart archetype plugin</description>
+  
+  <properties>
+      <project.build.sourceEncoding>UTF-8 </project.build.sourceEncoding>
+  </properties>
+  
+  <profiles>
+      <profile>
+          <id>dev</id>
+          <activation>
+              <activeByDefault>true</activeByDefault>
+          </activation>
+      </profile>
+  </profiles>
 </project>
