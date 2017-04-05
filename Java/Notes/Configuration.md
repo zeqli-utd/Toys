@@ -1,21 +1,23 @@
 ```java
-public static VoldemortConfig loadFromVoldemortHome(String voldemortHome) {
-        String voldemortConfigDir = voldemortHome + File.separator + "config";
-        return loadFromVoldemortHome(voldemortHome, voldemortConfigDir);
+public static Config loadFromAppHomeDir(String appHome) {
+        String appConfigDir = appHome + File.separator + "config";
+        return loadFromVoldemortHome(appHome, appConfigDir);
 
     }
 
-    public static VoldemortConfig loadFromVoldemortHome(String voldemortHome,
-                                                        String voldemortConfigDir) {
-        if(!Utils.isReadableDir(voldemortHome))
-            throw new ConfigurationException("Attempt to load configuration from VOLDEMORT_HOME, "
-                                             + voldemortHome
+    public static VoldemortConfig loadFromVoldemortHome(String appHome,
+                                                        String appConfigDir) {
+        if(!Utils.isReadableDir(appHome))
+            throw new ConfigurationException("Attempt to load configuration from APP_HOME, "
+                                             + appHome
                                              + " failed. That is not a readable directory.");
 
-        if(voldemortConfigDir == null) {
-            voldemortConfigDir = voldemortHome + File.separator + "config";
+        if(appConfigDir == null) {
+            appConfigDir = appHome + File.separator + "config";
         }
-        String propertiesFile = voldemortConfigDir + File.separator + "server.properties";
+
+        String propertiesFile = appConfigDir + File.separator + "server.properties";
+        
         if(!Utils.isReadableFile(propertiesFile))
             throw new ConfigurationException(propertiesFile
                                              + " is not a readable configuration file.");
@@ -23,8 +25,8 @@ public static VoldemortConfig loadFromVoldemortHome(String voldemortHome) {
         Props properties = null;
         try {
             properties = new Props(new File(propertiesFile));
-            properties.put(VOLDEMORT_HOME, voldemortHome);
-            properties.put(METADATA_DIRECTORY, voldemortConfigDir);
+            properties.put(APP_HOME, appHome);
+            properties.put(METADATA_DIRECTORY, appConfigDir);
         } catch(IOException e) {
             throw new ConfigurationException(e);
         }
