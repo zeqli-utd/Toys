@@ -5,8 +5,6 @@
  */
 package com.mycompany.myapp;
 
-import java.net.URL;
-
 /**
  * 
  * @author Zeqing Li

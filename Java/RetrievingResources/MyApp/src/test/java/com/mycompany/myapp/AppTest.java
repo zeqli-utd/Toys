@@ -3,7 +3,6 @@ package com.mycompany.myapp;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 
-import java.io.File;
 import java.io.UnsupportedEncodingException;
 import java.net.MalformedURLException;
 import java.net.URI;
@@ -34,6 +33,10 @@ public class AppTest {
         for(URL url: urls){
             logger.info(url.getPath().substring(1));
         }
+        
+        logger.info("---------- current classpath ----------");
+        logger.info(AppTest.class.getResource(""));
+        logger.info(AppTest.class.getClassLoader().getResource(""));
     }
 
     @AfterClass
@@ -50,8 +53,8 @@ public class AppTest {
 
     @Test
     public void testResourcesRetrieval() {
-        URL url1 = getClass().getClassLoader().getResource("file3.txt");
-        URL url2 = getClass().getClassLoader().getResource("./file3.txt");
+        URL url1 = getClass().getClassLoader().getResource("file3.txt");    // Absolute path
+        URL url2 = getClass().getClassLoader().getResource("./file3.txt");  // Absolute path
         URL url3 = Thread.currentThread().getContextClassLoader().getResource("file3.txt");
         URL url4 = getClass().getClassLoader().getResource("/file3.txt"); 
         
@@ -64,9 +67,9 @@ public class AppTest {
     @Test
     public void testClassGetResource(){
         // Classpath: target/classes/
-        URL url1 = getClass().getResource("/file3.txt");
-        URL url2 = getClass().getResource("../../../file3.txt");
-        URL url3 = getClass().getResource("file3.txt");
+        URL url1 = getClass().getResource("/file3.txt");            // Absolute path
+        URL url2 = getClass().getResource("../../../file3.txt");    // Relative path
+        URL url3 = getClass().getResource("file3.txt");             // Relative path
         
         
         assertNotNull(url1);
